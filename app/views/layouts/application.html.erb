@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <div>
+      <% if logged_in? %>
+        <%= link_to 'Logout', sessions_path, method: 'delete' %>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
