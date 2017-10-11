@@ -19,7 +19,7 @@ class BoardgamesController < ApplicationController
   end
 
   def show
-    @boardgame = Boardgame.find_by(id:params[:id])
+    @boardgame = Boardgame.find_by(id: params[:id])
   end
 
 
@@ -32,6 +32,9 @@ class BoardgamesController < ApplicationController
   end
 
   def destroy
-
+    @boardgame = Boardgame.find(params[:id])
+    @boardgame.destroy
+ 
+    redirect_to root_path
   end
 end

@@ -1,0 +1,22 @@
+<%= link_to('Home', root_path) %>
+
+<h1><%= @boardgame.name %></h1>
+
+<div>
+  <p>Description:</p>  
+  <p><%= @boardgame.description %></p>
+</div>
+<div>
+  <p>Genre:</p>  
+  <p><%= @boardgame.genre %></p>
+</div>
+<div>
+  <p>Total Players:</p>  
+  <p><%= @boardgame.players %></p>
+</div>
+<div>
+  <p>Owner:</p>  
+  <p><%= @boardgame.owner.username %></p>
+</div>
+
+
