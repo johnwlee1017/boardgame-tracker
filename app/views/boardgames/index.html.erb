@@ -10,6 +10,8 @@
   <ul>
     <% @current_users_games.each do |game| %>
     <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id),class: :gname) %></li>
+    <%= link_to "Add a Boardgame", new_user_boardgame_path(@user.id) %>
+    <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id)) %> - <%= link_to('Edit', edit_user_boardgame_path(@user.id, game.id)) %> | <%= link_to('Delete', user_boardgame_path(@user.id, game.id), method: 'delete') %></li>
     <li><%= image_tag(game.image) %></li>
     <% end %>
   </ul>
