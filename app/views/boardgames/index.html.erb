@@ -7,8 +7,8 @@
   <h2>My Boardgames</h2>
   <ul>
     <% @current_users_games.each do |game| %>
-    <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id)) %></li>
-    <li><%= image_tag(game.image) %></li>
+    <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id)) %> - <%= link_to('Edit', edit_user_boardgame_path(@user.id, game.id)) %> | <%= link_to('Delete', root_path) %></li>
+    <li class="image"><%= image_tag(game.image) %></li>
     <% end %>
   </ul>
 <% end %>
@@ -18,7 +18,7 @@
 <ul>
   <% @friends_games.each do |game| %>
     <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id)) %></li>
-    <li><%= image_tag(game.image) %></li>
+    <li class="image"><%= image_tag(game.image) %></li>
     <li>Owend by <%= game.owner.username %></li>
   <% end %>
 </ul>
