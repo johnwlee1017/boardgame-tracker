@@ -1,0 +1,22 @@
+<% if @errors %>
+  <ul>
+    <% @errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with local: true, model: [current_user, @boardgame] do |f| %>
+  <%= hidden_field(:boardgame, :owner_id, value: current_user.id) %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label :description %><br>
+  <%= f.text_field :description %><br>
+  <%= f.label :genre %><br>
+  <%= f.text_field :genre %><br>
+  <%= f.label :players %><br>
+  <%= f.text_field :players %><br>
+  <%= f.label :image %><br>
+  <%= f.text_field :image %><br>
+  <%= f.submit %>
+<% end %>
