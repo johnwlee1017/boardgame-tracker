@@ -1,13 +1,15 @@
+<h1>Golden Bear Board Games</h1>
+
 <%= form_tag(user_boardgames_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Boardgames" %>
   <%= submit_tag "Search" %>
 <% end %>
 
 <% if @current_users_games %>
-  <h2>My Boardgames</h2>
+  <h2><%=@user.username.capitalize%>'s Boardgames</h2>
   <ul>
     <% @current_users_games.each do |game| %>
-    <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id)) %></li>
+    <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id),class: :gname) %></li>
     <li><%= image_tag(game.image) %></li>
     <% end %>
   </ul>
@@ -17,8 +19,8 @@
 <h2>Friend's Boardgames</h2>
 <ul>
   <% @friends_games.each do |game| %>
-    <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id)) %></li>
+    <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id),class: :gname) %></li>
     <li><%= image_tag(game.image) %></li>
-    <li>Owend by <%= game.owner.username %></li>
+    <li class="g-owner">Owned by <%= game.owner.username %></li>
   <% end %>
 </ul>
