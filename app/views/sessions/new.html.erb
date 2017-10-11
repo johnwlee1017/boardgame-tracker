@@ -1,10 +1,12 @@
 <h1> Welcome to Golden Bear Board Games </h1>
-<p> Don't have an account? <%=link_to "Click here", new_user_path%>!!!</p>
 
-<%= form_with url: sessions_path, local: true do |f| %>
-  <%=f.label :username%><br>
-  <%= f.text_field :username %><br>
-  <%=f.label :password%><br>
-  <%= f.password_field :password %><br>
+<p> Don't have an account? <%=link_to "Click here", new_user_path%>!!!</p>
+<div class="form-div">
+<%= form_with url: sessions_path, local: true, class: 'centered-form' do |f| %>
+  <%=f.label :username%>
+  <%= f.text_field :username %>
+  <%=f.label :password%>
+  <%= f.password_field :password %>
   <%= f.submit %>
 <% end %>
+</div>
