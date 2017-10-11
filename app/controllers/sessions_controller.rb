@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user
       login(@user)
-      redirect_to root_path
+      redirect_to user_boardgames_path(@user.id)
     else
       render new
     end

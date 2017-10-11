@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(@user)
-      redirect_to @user
+      redirect_to user_boardgames_path(@user.id)
     else
       redirect_to new_user_path
     end

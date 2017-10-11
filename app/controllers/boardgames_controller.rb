@@ -12,10 +12,18 @@ class BoardgamesController < ApplicationController
   end
 
   def new
+    @boardgame = Boardgame.new
   end
 
   def create
+    @boardgame = Boardgame.new(boardgame_params)
 
+    if @boardgame.save
+      redirect_to user_boardgames_path(@boardgame.owner_id)
+    else
+      @errors = @boardgame.errors.full_messages
+      render 'new'
+    end
   end
 
   def show
@@ -37,4 +45,11 @@ class BoardgamesController < ApplicationController
  
     redirect_to root_path
   end
+
+  private
+
+  def boardgame_params
+    params.require(:boardgame).permit(:name, :description, :genre, :players, :image, :owner_id)
+  end
+
 end
