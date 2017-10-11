@@ -1,5 +1,5 @@
 <h1>Golden Bear Board Games</h1>
-
+<%= render partial: "logout" %>
 <%= form_tag(user_boardgames_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Boardgames" %>
   <%= submit_tag "Search" %>
