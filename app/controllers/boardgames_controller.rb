@@ -24,11 +24,16 @@ class BoardgamesController < ApplicationController
 
 
   def edit
-
+    @boardgame = Boardgame.find_by(id: params[:id])
   end
 
   def update
-
+    @boardgame = Boardgame.find_by(id: params[:id])
+    if @boardgame.update(boardgame_params)
+      redirect_to user_boardgames_path(@boardgame.owner_id)
+    else
+      render :edit
+    end
   end
 
   def destroy
