@@ -6,4 +6,11 @@ class Boardgame < ApplicationRecord
     # where("name iLIKE ?", "%#{search}%") 
     where('name iLIKE :search OR genre iLIKE :search', search: "%#{search}%")
   end
+
+  def self.upload_to_s3(image)
+    s3 = Aws::S3::Resource.new(region:'us-east-2')
+    obj = s3.bucket('board-game-tracker').object(File.basename(image))
+    obj.upload_file(image)
+    obj.public_url
+  end
 end
