@@ -47,8 +47,8 @@ class BoardgamesController < ApplicationController
   def destroy
     @boardgame = Boardgame.find(params[:id])
     @boardgame.destroy
- 
-    redirect_to root_path
+
+    redirect_to user_boardgames_path
   end
 
   private
