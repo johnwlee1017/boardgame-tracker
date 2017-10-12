@@ -2,12 +2,12 @@ class BoardgamesController < ApplicationController
 
   def index
     @user = User.find_by(id: params[:user_id])
-
+    current_users_games = @user.boardgames
     if params[:search]
-     @friends_games = Boardgame.search(params[:search]).order("created_at DESC")
+     @friends_games = Boardgame.search(params[:search]).order("created_at DESC") - current_users_games
    else
-     @current_users_games = @user.boardgames
-     @friends_games = Boardgame.all.order('created_at DESC')
+     @current_users_games = current_users_games
+     @friends_games = Boardgame.all.order('created_at DESC') - current_users_games
    end
   end
 
@@ -17,6 +17,7 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
+    @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
 
     if @boardgame.save
       redirect_to user_boardgames_path(@boardgame.owner_id)
@@ -47,7 +48,7 @@ class BoardgamesController < ApplicationController
   def destroy
     @boardgame = Boardgame.find(params[:id])
     @boardgame.destroy
- 
+
     redirect_to root_path
   end
 
