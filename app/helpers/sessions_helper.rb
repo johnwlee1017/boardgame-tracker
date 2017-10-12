@@ -19,4 +19,9 @@ module SessionsHelper
     @current_user ||= User.find(session[:user_id]) if logged_in?
   end
 
+  def user_page?
+    return true if @user.id == session[:user_id]
+    false
+  end
+
 end
