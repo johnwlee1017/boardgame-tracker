@@ -1,18 +1,26 @@
 class BoardgamesController < ApplicationController
 
   def index
-    @user = User.find_by(id: params[:user_id])
-    current_users_games = @user.boardgames
-    if params[:search]
-     @friends_games = Boardgame.search(params[:search]).order("created_at DESC") - current_users_games
+    if logged_in?
+      @user = User.find_by(id: params[:user_id])
+      current_users_games = @user.boardgames
+      if params[:search]
+        @friends_games = Boardgame.search(params[:search]).order("created_at DESC") - current_users_games
+      else
+        @current_users_games = current_users_games
+        @friends_games = Boardgame.all.order('created_at DESC') - current_users_games
+      end
    else
-     @current_users_games = current_users_games
-     @friends_games = Boardgame.all.order('created_at DESC') - current_users_games
-   end
+      redirect_to root_path
+    end
   end
 
   def new
-    @boardgame = Boardgame.new
+    if logged_in?
+      @boardgame = Boardgame.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
@@ -33,7 +41,12 @@ class BoardgamesController < ApplicationController
 
 
   def edit
-    @boardgame = Boardgame.find_by(id: params[:id])
+
+    if logged_in?
+      @boardgame = Boardgame.find_by(id: params[:id])
+    else
+      redirect_to root_path
+    end
   end
 
   def update
@@ -49,7 +62,7 @@ class BoardgamesController < ApplicationController
     @boardgame = Boardgame.find(params[:id])
     @boardgame.destroy
 
-    redirect_to root_path
+    redirect_to user_boardgames_path
   end
 
   private
