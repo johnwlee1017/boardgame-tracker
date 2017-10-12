@@ -3,6 +3,7 @@ class Boardgame < ApplicationRecord
 
   def self.search(search)
     # Title is for the above case, the OP incorrectly had 'name'
-    where("name LIKE ?", "%#{search}%")
+    # where("name iLIKE ?", "%#{search}%") 
+    where('name iLIKE :search OR genre iLIKE :search', search: "%#{search}%")
   end
 end
