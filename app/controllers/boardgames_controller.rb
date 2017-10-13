@@ -29,7 +29,7 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
-    if !@boardgame.image.include?("Http")
+    if @boardgame.image.include?("Http")
       @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
     end
 
