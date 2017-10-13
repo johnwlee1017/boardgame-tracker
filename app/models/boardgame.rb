@@ -1,7 +1,9 @@
 class Boardgame < ApplicationRecord
   belongs_to :owner, class_name: "User"
+  validates :name, :description, :genre, :players, :play_time, presence: true
 
   def self.search(search)
+
 
     # get all usernames
     # from those usernames, make an array of relevant usernames based on search parameter
@@ -22,7 +24,6 @@ class Boardgame < ApplicationRecord
 
     games_by_relevant_usernames << where('name iLIKE :search OR genre iLIKE :search', search: "%#{search}%")
     return games_by_relevant_usernames[0]
-
   end
 
   def self.upload_to_s3(image)

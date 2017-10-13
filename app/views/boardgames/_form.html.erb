@@ -1,5 +1,4 @@
 <%= render "layouts/errors" %>
-
 <%= form_with local: true, model: [current_user, @boardgame] do |f| %>
   <%= hidden_field(:boardgame, :owner_id, value: current_user.id) %>
   <%= f.label :name %><br>
@@ -8,6 +7,8 @@
   <%= f.text_field :description %><br>
   <%= f.label :genre %><br>
   <%= f.text_field :genre %><br>
+  <%= f.label :play_time %><br>
+  <%= f.text_field :play_time %><br>
   <%= f.label :players %><br>
   <%= f.text_field :players %><br>
   <%= f.label :image %><br>
