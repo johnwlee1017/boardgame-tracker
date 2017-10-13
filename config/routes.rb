@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   resources :users do
     resources :boardgames
   end
-
+  resources :friendships, only: [:new, :create, :destroy]
 end

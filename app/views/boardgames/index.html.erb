@@ -5,6 +5,27 @@
 <% end %>
 
   <%= link_to "Add a Boardgame", new_user_boardgame_path(@user.id) %>
+
+<h1><%=@user.username.capitalize%>'s Page</h1>
+
+<% if page_belongs_to_user? %>
+  <div>
+    <h3>Friend Requests</h3>
+    <ul>
+      <% @friend_requests.each do |fr| %>
+        <li><%= fr.friend.username %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if !current_user.friends.find_by(id: @user.id) && !page_belongs_to_user? %>
+  <%= form_with local: true, url: friendships_path do |f| %>
+    <%= hidden_field(:friendships, :friend_id, value: @user.id) %>
+    <%= f.submit "Add Friend" %>
+  <% end %>
+<% end %>
+
 <% if @current_users_games %>
   <h2><%=@user.username.capitalize%>'s Boardgames</h2>
   <ul>

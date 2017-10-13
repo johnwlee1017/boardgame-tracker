@@ -3,7 +3,9 @@ class BoardgamesController < ApplicationController
   def index
     if logged_in?
       @user = User.find_by(id: params[:user_id])
+      @friend_requests = @user.friendships.where(accepted: false)
       current_users_games = @user.boardgames
+      # search method
       if params[:search]
         @friends_games = Boardgame.search(params[:search]).order("created_at DESC") - current_users_games
       else
