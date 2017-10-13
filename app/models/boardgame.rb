@@ -3,8 +3,6 @@ class Boardgame < ApplicationRecord
   validates :name, :description, :genre, :players, :play_time, presence: true
 
   def self.search(search)
-
-
     # get all usernames
     # from those usernames, make an array of relevant usernames based on search parameter
     all_usernames = Boardgame.first.owner.class.all.pluck(:username)
@@ -24,6 +22,7 @@ class Boardgame < ApplicationRecord
 
     games_by_relevant_usernames << where('name iLIKE :search OR genre iLIKE :search', search: "%#{search}%")
     return games_by_relevant_usernames[0]
+
   end
 
   def self.upload_to_s3(image)
@@ -31,5 +30,12 @@ class Boardgame < ApplicationRecord
     obj = s3.bucket('board-game-tracker').object(File.basename(image))
     obj.upload_file(image)
     obj.public_url
+  end
+
+  def self.friends_games(friends)
+    friends_boardgame = []
+    return nil if friends.empty?
+    friends.each { |friend| friends_boardgame << friend.boardgames }
+    friends_boardgame.flatten!
   end
 end

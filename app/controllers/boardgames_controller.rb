@@ -5,18 +5,14 @@ class BoardgamesController < ApplicationController
     if logged_in?
       @user = User.find_by(id: params[:user_id])
       @friend_requests = @user.friendships.where(accepted: false)
-      # method to check if two friendship objects match
-      @friendships = @user.friendships.select do |friendship|
-        another_friendship = Friendship.find_by(user_id: friendship.friend_id, friend_id: friendship.user_id)
-        friendship.accepted && another_friendship.accepted
-      end
+      @friends = Friendship.fetch_friends(@user)
 
       # search method
       if params[:search]
         @search_results = Boardgame.search(params[:search])
         # @friends_games = Boardgame.search(params[:search]).where.not(owner_id: @user.id).order('created_at DESC')
       else
-        @friends_games = Boardgame.where.not(owner_id: @user.id).order('created_at DESC')
+        @friends_games = Boardgame.friends_games(@friends)
       end
    else
       redirect_to root_path
@@ -71,7 +67,7 @@ class BoardgamesController < ApplicationController
     end
 
     if @boardgame.update(boardgame_params)
-      flash[:notice] = "#{@boardgame} was successfully updated"
+      flash[:notice] = "#{@boardgame.name} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
     else
       @errors = @boardgame.errors.full_messages
