@@ -56,3 +56,31 @@ img {
   align-items: center;
   justify-content: space-around;
 }
+
+.notice, .alert {
+  position: fixed;
+  top: 115px;
+  right: 5px;
+  color: white;
+  font-weight: bold;
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+.notice a, .alert a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.notice:hover, .alert:hover {
+  opacity: 0.8;
+}
+
+.notice {
+  background: #1abc9c;
+}
+
+.alert {
+  background: #e74c3c;
+}

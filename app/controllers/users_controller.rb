@@ -7,8 +7,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(@user)
+      flash[:notice] = "Welecome #{@user.username}!"
       redirect_to user_boardgames_path(@user.id)
     else
+      @errors = @user.errors.full_messages
       redirect_to new_user_path
     end
   end

@@ -1,10 +1,4 @@
-<% if @errors %>
-  <ul>
-    <% @errors.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= render "layouts/errors" %>
 
 <%= form_with local: true, model: [current_user, @boardgame] do |f| %>
   <%= hidden_field(:boardgame, :owner_id, value: current_user.id) %>

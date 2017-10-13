@@ -1,5 +1,6 @@
 <h1>Create a new account</h1>
 
+<%= render "layouts/errors" %>
 <div class="form-div">
 <%= form_with model: @user, class: 'centered-form' do |f| %>
   <%=f.label :username%>
