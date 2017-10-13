@@ -31,7 +31,7 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
-    if !@boardgame.image.include?("http")
+    if !@boardgame.image.include?("Http")
       @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
     end
 
@@ -63,6 +63,11 @@ class BoardgamesController < ApplicationController
 
   def update
     @boardgame = Boardgame.find_by(id: params[:id])
+    @boardgame.image = params[:boardgame][:image]
+    if @boardgame.image.include?("Http")
+      @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    end
+
     if @boardgame.update(boardgame_params)
       flash[:notice] = "#{@boardgame} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
@@ -82,7 +87,7 @@ class BoardgamesController < ApplicationController
   private
 
   def boardgame_params
-    params.require(:boardgame).permit(:name, :description, :genre, :players, :image, :owner_id)
+    params.require(:boardgame).permit(:name, :description, :genre,:play_time, :players, :owner_id)
   end
 
 end

@@ -1,6 +1,6 @@
 class Boardgame < ApplicationRecord
   belongs_to :owner, class_name: "User"
- validates :name, :description, :genre, :players, :play_time, presence: true
+  validates :name, :description, :genre, :players, :play_time, presence: true
 
   def self.search(search)
     # Title is for the above case, the OP incorrectly had 'name'

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(username: params[:username])
-    if @user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password])
       login(@user)
       flash[:notice] = "Welecome back #{@user.username}!"
       redirect_to user_boardgames_path(@user.id)
