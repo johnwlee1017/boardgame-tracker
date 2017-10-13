@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       login(@user)
       redirect_to user_boardgames_path(@user.id)
     else
-      render new
+      render :new
     end
   end
 
