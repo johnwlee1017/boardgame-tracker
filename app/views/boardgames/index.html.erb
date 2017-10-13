@@ -58,6 +58,6 @@
   <% @friends_games.each do |game| %>
     <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id),class: :gname) %></li>
     <li><%= image_tag(game.image) %></li>
-    <li class="g-owner">Owned by <%= game.owner.username %></li>
+    <li class="g-owner">Owned by <%= link_to "#{game.owner.username}", user_boardgames_path(game.owner_id) %></li>
   <% end %>
 </ul>
