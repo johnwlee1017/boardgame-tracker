@@ -31,7 +31,13 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
-    @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    p "*" * 100
+    p @boardgame.image
+    p "*" * 100
+    # if @boardgame.image is NOT a url object, send to api
+    if !@boardgame.image.include?("http")
+      @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    end
 
     if @boardgame.save
       redirect_to user_boardgames_path(@boardgame.owner_id)
