@@ -12,12 +12,25 @@
   <div>
     <h3>Friend Requests</h3>
     <ul>
-      <% @friend_requests.each do |fr| %>
-        <li><%= fr.friend.username %></li>
+      <% @friend_requests.each do |friend_request| %>
+        <%= form_with local: true, method: 'patch', url: friendship_path(friend_request.id) do |f| %>
+          <%= f.submit "Accept #{friend_request.friend.username}'s request" %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Friends:</h3>
+    <ul>
+      <% @friendships.each do |friendship| %>
+        <li><%= friendship.friend.username %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
+
+
 
 <% if !current_user.friends.find_by(id: @user.id) && !page_belongs_to_user? %>
   <%= form_with local: true, url: friendships_path do |f| %>
@@ -26,10 +39,10 @@
   <% end %>
 <% end %>
 
-<% if @current_users_games %>
+<% if @user.boardgames %>
   <h2><%=@user.username.capitalize%>'s Boardgames</h2>
   <ul>
-    <% @current_users_games.each do |game| %>
+    <% @user.boardgames.each do |game| %>
     <li><%= link_to(game.name, user_boardgame_path(@user.id, game.id),class: :gname) %></li>
     <% if page_belongs_to_user? %>
       <li><%= link_to('Edit', edit_user_boardgame_path(@user.id, game.id)) %> | <%= link_to('Delete', user_boardgame_path(@user.id, game.id), method: 'delete') %></li>
