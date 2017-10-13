@@ -62,7 +62,7 @@ class BoardgamesController < ApplicationController
       flash[:notice] = "#{@boardgame} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
     else
-      @errros = @boardgame.errros.full_messages
+      @errors = @boardgame.errors.full_messages
       render :edit
     end
   end
