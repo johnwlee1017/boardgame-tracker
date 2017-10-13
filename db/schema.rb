@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171013181659) do
     t.integer "players"
     t.integer "owner_id"
     t.integer "play_time"
-    t.string "image", default: "http://bit.ly/2ymjOGo"
+    t.string "image", default: "http://bit.ly/2jvyaxH"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
