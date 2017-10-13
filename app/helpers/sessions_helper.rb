@@ -24,4 +24,8 @@ module SessionsHelper
     false
   end
 
+  def friends_game
+    re
+  end
+
 end

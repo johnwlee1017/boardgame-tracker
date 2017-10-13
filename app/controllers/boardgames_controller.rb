@@ -47,9 +47,12 @@ class BoardgamesController < ApplicationController
 
 
   def edit
-
     if logged_in?
       @boardgame = Boardgame.find_by(id: params[:id])
+      if session[:user_id] != @boardgame.owner_id
+        flash[:alert] = "Can't edit another user game"
+        redirect_to user_boardgames_path(@boardgame.owner_id)
+      end
     else
       redirect_to root_path
     end
