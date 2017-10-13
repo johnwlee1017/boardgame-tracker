@@ -75,6 +75,7 @@ img {
 
 .notice:hover, .alert:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .notice {

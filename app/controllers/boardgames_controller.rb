@@ -60,7 +60,7 @@ class BoardgamesController < ApplicationController
   def update
     @boardgame = Boardgame.find_by(id: params[:id])
     if @boardgame.update(boardgame_params)
-      flash[:notice] = "#{@boardgame} was successfully updated"
+      flash[:notice] = "#{@boardgame.name} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
     else
       @errors = @boardgame.errors.full_messages
