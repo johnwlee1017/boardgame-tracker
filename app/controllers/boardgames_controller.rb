@@ -31,7 +31,9 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
-    @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    if !@boardgame.image.include?("http")
+      @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    end
 
     if @boardgame.save
       flash[:notice] = "#{@boardgame.name} was successfully saved"
