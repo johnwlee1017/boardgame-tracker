@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem "aws-sdk"
+gem 'jquery-rails', '~> 4.0', '>= 4.0.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

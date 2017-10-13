@@ -12,14 +12,14 @@
   <div class="topbar">
     <h1>Golden Bear Board Games</h1>
   </div>
-  <div class="flash">
+  <div id="flash">
     <% if flash[:notice] %>
       <div class="notice">
-        <%= flash[:notice] %>
+        <%= link_to flash[:notice] %>
       </div>
     <% elsif flash[:alert] %>
-        <div class="notice">
-          <%= flash[:alert] %>
+        <div class="alert">
+          <%= link_to flash[:alert] %>
         </div>
     <% end %>
   </div>
