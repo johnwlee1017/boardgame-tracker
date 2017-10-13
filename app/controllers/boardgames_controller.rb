@@ -34,6 +34,7 @@ class BoardgamesController < ApplicationController
     @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
 
     if @boardgame.save
+      flash[:notice] = "#{@boardgame.name} was successfully saved"
       redirect_to user_boardgames_path(@boardgame.owner_id)
     else
       @errors = @boardgame.errors.full_messages
@@ -58,8 +59,10 @@ class BoardgamesController < ApplicationController
   def update
     @boardgame = Boardgame.find_by(id: params[:id])
     if @boardgame.update(boardgame_params)
+      flash[:notice] = "#{@boardgame} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
     else
+      @errros = @boardgame.errros.full_messages
       render :edit
     end
   end
@@ -67,7 +70,7 @@ class BoardgamesController < ApplicationController
   def destroy
     @boardgame = Boardgame.find(params[:id])
     @boardgame.destroy
-
+    flash[:notice] = "#{@boardgame} was successfully deleted"
     redirect_to user_boardgames_path
   end
 

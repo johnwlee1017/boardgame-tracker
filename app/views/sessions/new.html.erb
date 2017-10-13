@@ -1,6 +1,7 @@
 <div class="form-div">
 <%= form_with url: sessions_path, local: true, class: 'centered-form' do |f| %>
   <p> Don't have an account? <%=link_to "Click here", new_user_path%>!!!</p>
+  <%= render "layouts/errors" %>
   <%=f.label :username%>
   <%= f.text_field :username %>
   <%=f.label :password%>
