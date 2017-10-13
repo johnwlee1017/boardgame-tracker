@@ -1,6 +1,7 @@
 class BoardgamesController < ApplicationController
 
   def index
+    @all_usernames = User.all.pluck(:username)
     if logged_in?
       @user = User.find_by(id: params[:user_id])
       @friend_requests = @user.friendships.where(accepted: false)
@@ -12,7 +13,8 @@ class BoardgamesController < ApplicationController
 
       # search method
       if params[:search]
-        @friends_games = Boardgame.search(params[:search]).where.not(owner_id: @user.id).order('created_at DESC')
+        @search_results = Boardgame.search(params[:search])
+        # @friends_games = Boardgame.search(params[:search]).where.not(owner_id: @user.id).order('created_at DESC')
       else
         @friends_games = Boardgame.where.not(owner_id: @user.id).order('created_at DESC')
       end

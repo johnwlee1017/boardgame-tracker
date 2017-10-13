@@ -53,6 +53,22 @@
 <% end %>
 <br>
 
+
+<% if @search_results %>
+
+
+<h2>Search Results:</h2>
+<ul>
+  <% @search_results.each do |game| %>
+    <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id),class: :gname) %></li>
+    <li><%= image_tag(game.image) %></li>
+    <li class="g-owner">Owned by <%= link_to "#{game.owner.username}", user_boardgames_path(game.owner_id) %></li>
+  <% end %>
+</ul>
+
+<% else %>
+
+
 <h2>Friend's Boardgames</h2>
 <ul>
   <% @friends_games.each do |game| %>
@@ -61,3 +77,5 @@
     <li class="g-owner">Owned by <%= link_to "#{game.owner.username}", user_boardgames_path(game.owner_id) %></li>
   <% end %>
 </ul>
+
+<% end %>
