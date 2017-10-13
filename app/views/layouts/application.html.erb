@@ -11,6 +11,8 @@
   <body>
   <div class="topbar">
     <h1>Golden Bear Board Games</h1>
+    <%= link_to('Home', root_path) %>
+    <%= render "layouts/logout" %>
   </div>
   <div id="flash">
     <% if flash[:notice] %>
