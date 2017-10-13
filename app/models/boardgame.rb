@@ -3,7 +3,7 @@ class Boardgame < ApplicationRecord
 
   def self.search(search)
     # Title is for the above case, the OP incorrectly had 'name'
-    # where("name iLIKE ?", "%#{search}%") 
+    # where("name iLIKE ?", "%#{search}%")
     where('name iLIKE :search OR genre iLIKE :search', search: "%#{search}%")
   end
 
@@ -12,5 +12,12 @@ class Boardgame < ApplicationRecord
     obj = s3.bucket('board-game-tracker').object(File.basename(image))
     obj.upload_file(image)
     obj.public_url
+  end
+
+  def self.friends_games(friends)
+    friends_boardgame = []
+    return nil if friends.empty?
+    friends.each { |friend| friends_boardgame << friend.boardgames }
+    friends_boardgame.flatten!
   end
 end

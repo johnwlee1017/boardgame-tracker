@@ -23,8 +23,8 @@
   <div>
     <h3>Friends:</h3>
     <ul>
-      <% @friendships.each do |friendship| %>
-        <li><%= friendship.friend.username %></li>
+      <% @friends.each do |friend| %>
+        <li><%= friend.username %></li>
       <% end %>
     </ul>
   </div>
@@ -54,10 +54,12 @@
 <br>
 
 <h2>Friend's Boardgames</h2>
-<ul>
-  <% @friends_games.each do |game| %>
-    <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id),class: :gname) %></li>
-    <li><%= image_tag(game.image) %></li>
-    <li class="g-owner">Owned by <%= link_to "#{game.owner.username}", user_boardgames_path(game.owner_id) %></li>
-  <% end %>
-</ul>
+<% if @friends_games %>
+  <ul>
+    <% @friends_games.each do |game| %>
+      <li><%= link_to(game.name, user_boardgame_path(game.owner_id, game.id),class: :gname) %></li>
+      <li><%= image_tag(game.image) %></li>
+      <li class="g-owner">Owned by <%= link_to "#{game.owner.username}", user_boardgames_path(game.owner_id) %></li>
+    <% end %>
+  </ul>
+<% end %>
