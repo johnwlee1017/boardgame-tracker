@@ -14,10 +14,4 @@ class Boardgame < ApplicationRecord
     obj.upload_file(image)
     obj.public_url
   end
-
-  private
-
-  def check_image
-
-  end
 end
