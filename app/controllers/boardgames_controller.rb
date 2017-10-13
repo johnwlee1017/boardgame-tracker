@@ -1,6 +1,7 @@
 class BoardgamesController < ApplicationController
 
   def index
+    @all_usernames = User.all.pluck(:username)
     if logged_in?
       @user = User.find_by(id: params[:user_id])
       @friend_requests = @user.friendships.where(accepted: false)
@@ -8,7 +9,8 @@ class BoardgamesController < ApplicationController
 
       # search method
       if params[:search]
-        @friends_games = Boardgame.search(params[:search]).where.not(owner_id: @user.id).order('created_at DESC')
+        @search_results = Boardgame.search(params[:search])
+        # @friends_games = Boardgame.search(params[:search]).where.not(owner_id: @user.id).order('created_at DESC')
       else
         @friends_games = Boardgame.friends_games(@friends)
       end
@@ -27,7 +29,7 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = Boardgame.new(boardgame_params)
-    if !@boardgame.image.include?("http")
+    if !@boardgame.image.include?("Http")
       @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
     end
 
@@ -59,6 +61,11 @@ class BoardgamesController < ApplicationController
 
   def update
     @boardgame = Boardgame.find_by(id: params[:id])
+    @boardgame.image = params[:boardgame][:image]
+    if @boardgame.image.include?("Http")
+      @boardgame.image = Boardgame.upload_to_s3(params[:boardgame][:image].tempfile)
+    end
+
     if @boardgame.update(boardgame_params)
       flash[:notice] = "#{@boardgame.name} was successfully updated"
       redirect_to user_boardgames_path(@boardgame.owner_id)
@@ -78,7 +85,7 @@ class BoardgamesController < ApplicationController
   private
 
   def boardgame_params
-    params.require(:boardgame).permit(:name, :description, :genre, :players, :image, :owner_id)
+    params.require(:boardgame).permit(:name, :description, :genre,:play_time, :players, :owner_id)
   end
 
 end
