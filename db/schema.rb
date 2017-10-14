@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20171013181659) do
   enable_extension "plpgsql"
 
   create_table "boardgames", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "genre"
-    t.integer "players"
-    t.integer "owner_id"
-    t.integer "play_time"
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "genre", null: false
+    t.integer "players", null: false
+    t.integer "owner_id", null: false
+    t.integer "play_time", null: false
     t.string "image", default: "http://bit.ly/2jvyaxH"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20171013181659) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
+    t.string "username", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
