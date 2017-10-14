@@ -18,5 +18,6 @@ User.create(username: 'anson', password: 'anson')
 Boardgame.create(name: 'battle ship', description: 'blow things up', genre: 'war', play_time: 2, players: 2, owner_id: User.first.id, image: 'http://bit.ly/2xzH3sC')
 
 User.create(username: 'kanji', password: 'kanji')
+User.create(username: 'john', password: 'john')
+User.create(username: 'cortney', password: 'cortney')
 User.create(username: 'max', password: 'max')
-
