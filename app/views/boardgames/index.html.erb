@@ -23,7 +23,7 @@
     <h3>Friends:</h3>
     <ul>
       <% @friends.each do |friend| %>
-        <li><%= friend.username %></li>
+        <li><%= link_to("#{friend.username}", user_boardgames_path(friend.id)) %></li>
       <% end %>
     </ul>
   </div>
