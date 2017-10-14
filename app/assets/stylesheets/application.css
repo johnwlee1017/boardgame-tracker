@@ -85,3 +85,11 @@ img {
 .alert {
   background: #e74c3c;
 }
+
+/* CSS for friend-list feature*/
+#friend-list {
+  text-align: center;
+  border: 1px solid black;
+  width: 140px;
+  float: right;
+}
